@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as React from 'react';
 import './App.css';
+import {connect} from 'react-redux'
+import {IState} from './models'
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import InputValue from './components/inputValue'
 
-export default App;
+const App: React.FC<{}> = ({typeCur1}:any) => {
+        return (
+            <div className='container'>
+                <mark>{typeCur1}</mark>
+                <div className="row">
+                    <div className="col-5">
+                        <InputValue />
+                    </div>
+                    <div className="col-5 col-offset-2">
+                        <InputValue />
+                    </div>
+                </div>
+            </div>
+        );
+};
+const mapStateToProps = ({typeCur1}:IState)=> ({
+    typeCur1: typeCur1
+});
+export default connect(mapStateToProps)(App);
