@@ -2,9 +2,9 @@ import {IState} from '../models'
 
 const initialState:IState = {
     input1:0,
-    input12:0,
-    typeCur1:'USD',
-    typeCur2:'USD',
+    input2:0,
+    abbr1:'BYR',
+    abbr2:'USD',
     currencies:[]
 };
 
@@ -16,8 +16,9 @@ const reducer = (state:IState = initialState, action:any):IState => {
             console.log('Reducer ответил');
             console.log(state);
             return state;
+        case "FETCH_LAST_CURRENCIES":
+            return {...state, currencies:[...action.payload]};
         default:return state;
-
     }
 };
 

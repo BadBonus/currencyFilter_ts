@@ -1,0 +1,12 @@
+.li_currency
+{
+    -webkit-transition: .4s;
+    -moz-transition: .4s;
+    -ms-transition: .4s;
+    -o-transition: .4s;
+    transition: .4s;
+}
+.li_currency:hover
+{
+    background: rgba(23, 20, 31, 0.71);
+}
