@@ -16,7 +16,27 @@ const changeValue = (numberInput:number, value:number):IAction<{}>=>{
     return{type:"CHANGE_VALUE", payload:{numberInput:numberInput, value:value}}
 };
 
+const changeAbbr1 = (abbr:string):IAction<{}> => {
+    return{type:"CHANGE_ABBR1", payload:abbr}
+};
+
+const changeAbbr2 = (abbr:string):IAction<{}> => {
+    return{type:"CHANGE_ABBR2", payload:abbr}
+};
+
+const changeValue1 = (value:number):IAction<{}> => {
+    return{type:"CHANGE_VALUE1", payload:value}
+};
+
+const changeValue2 = (value:number):IAction<{}> => {
+    return{type:"CHANGE_VALUE2", payload:value}
+};
+
 export {
     test,
-    fetchLatestCurrencies
+    fetchLatestCurrencies,
+    changeAbbr1,
+    changeAbbr2,
+    changeValue1,
+    changeValue2
 };

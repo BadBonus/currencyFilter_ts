@@ -1,5 +1,6 @@
 import * as React from 'react'
 import {IPropsInput, IStateInput} from '../models'
+import {connect} from 'react-redux'
 
 
 class InputValue extends React.Component<IPropsInput, IStateInput> {
@@ -8,7 +9,6 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
         listOpen:false,
         nameOfCurrencies:[],
         searchWord:'',
-        abbr:'USD'
     };
 
     changeStateList = ():void => {
@@ -18,6 +18,18 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
     changeSearchWord = (text:string):void =>{
         this.setState({ searchWord:text});
     };
+
+    handleOutsideClick = (e:any) =>
+    {
+        if(e.target.closest(`#${this.props.id}`)===null)
+        {
+            this.setState({listOpen:false})
+        }
+    };
+    componentDidMount()
+    {
+        document.addEventListener('click', this.handleOutsideClick, false);
+    }
 
     componentDidUpdate(prevProps:any)
     {
@@ -30,6 +42,7 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
   render()
   {
       let rawData = this.state.nameOfCurrencies;
+      const {changeAbbr, abbr, value, changeValue, id} = this.props;
       let listOfCurrencies:any[] = [];
       if(this.state.nameOfCurrencies.length>0)
       {
@@ -38,22 +51,34 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
               rawData=rawData.filter(el=>el.name.toLowerCase().includes(this.state.searchWord.toLowerCase()));
           }
           listOfCurrencies = rawData.map(el=>{
-              return <li className='list-group-item li_currency p-0'><button className="btn w-100 text-white p-3">
-                          {el.name}
+              return <li className='list-group-item li_currency p-0' key={el.id}>
+                  <button className="btn w-100 text-white p-3"
+                            onClick={e=>{
+                            e.preventDefault();
+                                changeAbbr(el.abbr);
+                            }
+                            }>
+                          {el.name}{el.id}
                           </button>
                       </li>
           })
       }
-      console.log(listOfCurrencies);
+
       return (
           <div className='container_inputs'>
-              <form>
+              <form id={id}>
                    <div className="btn-group w-100">
-                       <input className='w-75 text-center'/>
+                       <input className='w-75 text-center'
+                              type='number'
+                              value={value}
+                              onChange={e=>{
+                                  changeValue(+(e.target.value));
+                              }}
+                       />
                        <button className="btn btn-primary"
-                               onClick={(e)=>{e.preventDefault();this.changeStateList()}}>{this.state.abbr}</button>
+                               onClick={(e)=>{e.preventDefault();this.changeStateList()}}>{abbr}</button>
                    </div>
-                      <div className={`helperList ${this.state.listOpen?null:'d-none'}`}>
+                      <div className={`helperList ${this.state.listOpen?null:'d-none'}`} >
                           <div className="list-group-item search_input p-0">
                               <input type="text" className="form-control border-0"
                                      placeholder={`Ввод`}
@@ -73,4 +98,12 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
   }
 }
 
-export default InputValue;
+const mapStateToProps = (state:any) => {
+
+};
+
+const mapDispatchToProps = (dispatch:any) => {
+
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(InputValue);

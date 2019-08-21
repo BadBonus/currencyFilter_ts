@@ -23,7 +23,7 @@ export default class Service {
         });
     }
 
-    //можно брать с сервера за раз только 365 дней, обдумай как правильно взять данные
+    //365 дней max
     async getCurrencyHistory(id_cur:any, startDate=this._transformedDefaultStartDate, lastDate=this._transformedNowDate)
     {
         const period = await this.getResource(`Rates/Dynamics/${id_cur}?startDate=${startDate}&endDate=${lastDate}`);

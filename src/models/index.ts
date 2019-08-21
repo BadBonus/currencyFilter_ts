@@ -1,8 +1,10 @@
 import * as React from "react";
 
 export interface IState {
-    input1:number,
-    input2:number,
+    inputValue1:number,
+    inputValue2:number,
+    countCurrency1:number,
+    countCurrency2:number,
     abbr1:string,
     abbr2:string,
     currencies: any[],
@@ -14,7 +16,11 @@ export interface IAction<type>{
 }
 
 export interface IPropsInput extends React.HTMLProps<HTMLInputElement> {
-    listData: string[];
+    listData: string[],
+    abbr:string,
+    changeAbbr(abbr:string): void,
+    changeValue(value:number): void,
+    id:string
 }
 
 export interface IStateInput {
@@ -22,5 +28,4 @@ export interface IStateInput {
     listOpen:boolean,
     searchWord: string,
     nameOfCurrencies:any[],
-    abbr: string
 }
