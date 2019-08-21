@@ -3,10 +3,12 @@ import {IState} from '../models'
 const initialState:IState = {
     inputValue1:0,
     inputValue2:0,
-    countCurrency1:1,
-    countCurrency2:1,
-    abbr1:'BYR',
-    abbr2:'BYR',
+    valueCurrency1:1,
+    valueCurrency2:1,
+    abbr1:'BYN',
+    abbr2:'BYN',
+    scale1:1,
+    scale2:1,
     currencies:[{abbr: "BYR",
                 id: 0,
                 name: "Белорусский рубль",
@@ -15,9 +17,10 @@ const initialState:IState = {
 };
 
 const reducer = (state:IState = initialState, action:any):IState => {
+    let findedCur;
+
     switch (action.type)
     {
-
         case "TEST":
             console.log('Reducer ответил');
             console.log(state);
@@ -25,23 +28,28 @@ const reducer = (state:IState = initialState, action:any):IState => {
         case "FETCH_LAST_CURRENCIES":
             return {...state, currencies:[...action.payload, ...state.currencies]};
         case "CHANGE_ABBR1":
+            findedCur=state.currencies.find(el=>el.abbr===action.payload);
             return {...state,
                     abbr1:action.payload,
-                    countCurrency1:state.currencies.find(el=>el.abbr===action.payload).value,
-                    inputValue2:+((state.currencies.find(el=>el.abbr===action.payload).value/state.countCurrency2)*state.inputValue1).toFixed(3)
+                    valueCurrency1:findedCur.value,
+                    inputValue2:+((findedCur.value/state.valueCurrency2/findedCur.scale)*state.inputValue1).toFixed(3),
+                    scale1:findedCur.scale
             };
         case "CHANGE_ABBR2":
+            findedCur = state.currencies.find(el=>el.abbr===action.payload);
             return {...state,
                     abbr2:action.payload,
-                    countCurrency2:state.currencies.find(el=>el.abbr===action.payload).value,
-                    inputValue1:+((state.currencies.find(el=>el.abbr===action.payload).value/state.countCurrency1)*state.inputValue2).toFixed(3)};
+                    valueCurrency2:findedCur.value,
+                    inputValue1:+((findedCur.value/state.valueCurrency1/findedCur.scale)*state.inputValue2).toFixed(3),
+                    scale2:findedCur.scale
+            };
         case "CHANGE_VALUE1":
             return {...state,
-                inputValue2:+((state.countCurrency1/state.countCurrency2)*action.payload).toFixed(3),
+                inputValue2:+((state.valueCurrency1/state.valueCurrency2/state.scale1)*action.payload).toFixed(3),
                 inputValue1:action.payload};
         case "CHANGE_VALUE2":
             return {...state,
-                inputValue1: +((state.countCurrency2/state.countCurrency1)*action.payload).toFixed(3),
+                inputValue1: +((state.valueCurrency2/state.valueCurrency1/state.scale2)*action.payload).toFixed(3),
                 inputValue2:action.payload};
         default:return state;
     }

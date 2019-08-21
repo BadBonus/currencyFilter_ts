@@ -58,7 +58,7 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
                                 changeAbbr(el.abbr);
                             }
                             }>
-                          {el.name}{el.id}
+                          {el.name}
                           </button>
                       </li>
           })
@@ -81,7 +81,7 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
                       <div className={`helperList ${this.state.listOpen?null:'d-none'}`} >
                           <div className="list-group-item search_input p-0">
                               <input type="text" className="form-control border-0"
-                                     placeholder={`Ввод`}
+                                     placeholder={`Введите название валюты`}
                                      onChange={e=>{
                                          this.changeSearchWord(e.target.value);
                                      }}

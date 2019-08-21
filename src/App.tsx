@@ -22,7 +22,7 @@ class App extends React.Component<any>{
             const {currencies, typeCur1}:any = this.props;
             return (
                 <div className='container'>
-                    <div className="row">
+                    <div className="row mt-5">
                         <div className="col-5">
                             <InputValue listData={currencies} abbr={this.props.abbr1}
                                         value={this.props.inputValue1}

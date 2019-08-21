@@ -3,11 +3,14 @@ import * as React from "react";
 export interface IState {
     inputValue1:number,
     inputValue2:number,
-    countCurrency1:number,
-    countCurrency2:number,
+    valueCurrency1:number,
+    valueCurrency2:number,
     abbr1:string,
     abbr2:string,
-    currencies: any[],
+    scale1:number,
+    scale2:number,
+    currencies: any[]
+
 }
 
 export interface IAction<type>{
