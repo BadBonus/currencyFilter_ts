@@ -19,9 +19,21 @@ class App extends React.Component<any>{
 
         render()
         {
-            const {currencies, typeCur1}:any = this.props;
+            const {currencies}:any = this.props;
             return (
                 <div className='container'>
+                    <div className="row mt-5">
+                        <div className="col-12 justify-content-center d-flex flex-column align-items-center text-center">
+                            <h2>Простой конвертер валют</h2>
+                            <p>
+                                Конвертер для своей работы использует библиотеку <a target="_blank" rel="noopener noreferrer" href="https://ru.reactjs.org/">React </a>
+                                 с использованием typescript.
+                                <br/>
+                                Для получения актуальных данных по текущим курсам валют используется <a rel="noopener noreferrer"  href="http://www.nbrb.by/APIHelp/ExRates" target='_blank'>API</a> предоставляемым
+                                национальным банком РБ
+                            </p>
+                        </div>
+                    </div>
                     <div className="row mt-5">
                         <div className="col-5">
                             <InputValue listData={currencies} abbr={this.props.abbr1}
@@ -56,13 +68,11 @@ const mapStateToProps = ({currencies, inputValue1, inputValue2, abbr1, abbr2}:IS
     inputValue2
 });
 
-const mapDispatchToProps = (dispatch:any) =>{
-    return {
-        fetchLatestCurrencies: ()=>dispatch(fetchLatestCurrencies()),
-        changeAbbr1: (abbr:string)=> {dispatch(changeAbbr1(abbr))},
-        changeAbbr2: (abbr:string)=> {dispatch(changeAbbr2(abbr))},
-        changeValue1:(value:number)=> {dispatch(changeValue1(value))},
-        changeValue2:(value:number)=> {dispatch(changeValue2(value))}
-    }
-};
+const mapDispatchToProps = (dispatch:any) =>({
+    fetchLatestCurrencies: ()=>dispatch(fetchLatestCurrencies()),
+    changeAbbr1: (abbr:string)=> {dispatch(changeAbbr1(abbr))},
+    changeAbbr2: (abbr:string)=> {dispatch(changeAbbr2(abbr))},
+    changeValue1:(value:number)=> {dispatch(changeValue1(value))},
+    changeValue2:(value:number)=> {dispatch(changeValue2(value))}
+});
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -21,3 +21,15 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
     -moz-appearance: textfield;
 }
+
+.list-group
+{
+    max-height: 300px;
+    overflow: scroll;
+}
+
+.inputValue
+{
+    width: 100%;
+    max-width: 65%;
+}

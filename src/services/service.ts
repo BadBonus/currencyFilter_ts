@@ -4,7 +4,6 @@ export default class Service {
     _nowDate: Date = new Date();
     _transformedNowDate: string = `${this._nowDate.getFullYear()}-${this._nowDate.getMonth()}-${this._nowDate.getDate()}`;
     _transformedDefaultStartDate: string = `${this._nowDate.getFullYear()-3}-${this._nowDate.getMonth()}-${this._nowDate.getDate()}`;
-    _apiAdd= 'http://www.nbrb.by/API/ExRates/Rates/Dynamics/145?startDate=2016-6-1&endDate=2019-5-28';
 
     async getResource(url:string) {
         const res = await fetch(`${this._apiBase}${url}`);

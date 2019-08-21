@@ -68,11 +68,12 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
           <div className='container_inputs'>
               <form id={id}>
                    <div className="btn-group w-100">
-                       <input className='w-75 text-center'
-                              type='number'
+                       <input className='inputValue text-center'
+                              type='text'
                               value={value}
                               onChange={e=>{
-                                  changeValue(+(e.target.value));
+
+                                  changeValue(+(e.target.value).replace(/\D+/g,""));
                               }}
                        />
                        <button className="btn btn-primary"
