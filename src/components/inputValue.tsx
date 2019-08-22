@@ -99,12 +99,4 @@ class InputValue extends React.Component<IPropsInput, IStateInput> {
   }
 }
 
-const mapStateToProps = (state:any) => {
-
-};
-
-const mapDispatchToProps = (dispatch:any) => {
-
-};
-
-export default connect(mapStateToProps,mapDispatchToProps)(InputValue);
+export default InputValue;

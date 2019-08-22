@@ -10,7 +10,6 @@ export interface IState {
     scale1:number,
     scale2:number,
     currencies: any[]
-
 }
 
 export interface IAction<type>{

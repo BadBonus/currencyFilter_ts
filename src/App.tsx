@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import {connect} from 'react-redux'
+import {Dispatch} from 'redux'
 import {IState} from './models'
 import {fetchLatestCurrencies,
     changeAbbr1,
@@ -10,7 +11,30 @@ import {fetchLatestCurrencies,
 
 import InputValue from './components/inputValue'
 
-class App extends React.Component<any>{
+const mapStateToProps = ({currencies, inputValue1, inputValue2, abbr1, abbr2}:IState)=>({
+    currencies: currencies.map(el=>
+        ({  name:el.name+' '+el.abbr,
+            id:el.id,
+            abbr:el.abbr
+        })),
+    abbr1,
+    abbr2,
+    inputValue1,
+    inputValue2
+});
+
+const mapDispatchToProps = (dispatch:Dispatch) =>({
+    fetchLatestCurrencies: ()=>dispatch(fetchLatestCurrencies()),
+    changeAbbr1: (abbr:string)=> {dispatch(changeAbbr1(abbr))},
+    changeAbbr2: (abbr:string)=> {dispatch(changeAbbr2(abbr))},
+    changeValue1:(value:number)=> {dispatch(changeValue1(value))},
+    changeValue2:(value:number)=> {dispatch(changeValue2(value))}
+});
+
+type Props = ReturnType<typeof mapStateToProps> &
+    ReturnType<typeof mapDispatchToProps>;
+
+class App extends React.Component<Props>{
 
     componentDidMount()
     {
@@ -56,23 +80,5 @@ class App extends React.Component<any>{
             );
         }
 }
-const mapStateToProps = ({currencies, inputValue1, inputValue2, abbr1, abbr2}:IState)=>({
-    currencies: currencies.map(el=>
-        ({  name:el.name+' '+el.abbr,
-            id:el.id,
-            abbr:el.abbr
-        })),
-    abbr1,
-    abbr2,
-    inputValue1,
-    inputValue2
-});
 
-const mapDispatchToProps = (dispatch:any) =>({
-    fetchLatestCurrencies: ()=>dispatch(fetchLatestCurrencies()),
-    changeAbbr1: (abbr:string)=> {dispatch(changeAbbr1(abbr))},
-    changeAbbr2: (abbr:string)=> {dispatch(changeAbbr2(abbr))},
-    changeValue1:(value:number)=> {dispatch(changeValue1(value))},
-    changeValue2:(value:number)=> {dispatch(changeValue2(value))}
-});
 export default connect(mapStateToProps, mapDispatchToProps)(App);
