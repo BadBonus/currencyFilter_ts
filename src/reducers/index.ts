@@ -32,7 +32,7 @@ const reducer = (state:IState = initialState, action:any):IState => {
             return {...state,
                     abbr1:action.payload,
                     valueCurrency1:findedCur.value,
-                    inputValue2:+((findedCur.value/state.valueCurrency2/findedCur.scale)*state.inputValue1).toFixed(3),
+                    inputValue2:+((findedCur.value/findedCur.scale/(state.valueCurrency2/state.scale2))*state.inputValue1).toFixed(3),
                     scale1:findedCur.scale
             };
         case "CHANGE_ABBR2":
@@ -40,16 +40,16 @@ const reducer = (state:IState = initialState, action:any):IState => {
             return {...state,
                     abbr2:action.payload,
                     valueCurrency2:findedCur.value,
-                    inputValue1:+((findedCur.value/state.valueCurrency1/findedCur.scale)*state.inputValue2).toFixed(3),
+                    inputValue1:+((findedCur.value/findedCur.scale/(state.valueCurrency1/state.scale1))*state.inputValue2).toFixed(3),
                     scale2:findedCur.scale
             };
         case "CHANGE_VALUE1":
             return {...state,
-                inputValue2:+((state.valueCurrency1/state.valueCurrency2/state.scale1)*action.payload).toFixed(3),
+                inputValue2:+((state.valueCurrency1/state.scale1/(state.valueCurrency2/state.scale2))*action.payload).toFixed(3),
                 inputValue1:action.payload};
         case "CHANGE_VALUE2":
             return {...state,
-                inputValue1: +((state.valueCurrency2/state.valueCurrency1/state.scale2)*action.payload).toFixed(3),
+                inputValue1: +((state.valueCurrency2/state.scale2/(state.valueCurrency1/state.scale1))*action.payload).toFixed(3),
                 inputValue2:action.payload};
         default:return state;
     }
